@@ -1,0 +1,21 @@
+version: "3"
+services:
+  nginx:
+    container_name: "nginx"
+    build:
+      context: nginx
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - nestjs-server
+  nestjs-server:
+    container_name: "nestjs-server"
+    build:
+      context: server
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    env_file:
+      - server/.env
+    restart: "always"
